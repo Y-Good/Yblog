@@ -16,5 +16,5 @@ pnpm run blog
 ## 其他
 - 子包添加依赖
 ```
-pnpm add <package> --filter <modeule>
+pnpm add <依赖> --filter <子包>
  ```
