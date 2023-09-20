@@ -9,7 +9,7 @@ pnpm install
 pnpm run blog
 ```
 ## 运行端口
-- Server运行端口：http://localhost:3000
+- Server运行端口：http://localhost:3001
 - Backend运行端口：http://localhost:8081
 - Web运行端口：http://localhost:8080
 
