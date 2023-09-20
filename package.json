@@ -1,11 +1,10 @@
 {
   "name": "Ylog",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
-    "start": "lerna run start --parallel"
+    "blog": "pnpm -r run start",
+    "server": "pnpm --filter server run start:dev",
+    "web": "pnpm --filter web run start",
+    "backend": "pnpm --filter backend run start"
   },
   "dependencies": {
     "@arco-design/web-react": "^2.53.1",
@@ -25,6 +24,6 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "lerna": "^7.3.0"
+    "tailwindcss": "^3.3.3"
   }
 }

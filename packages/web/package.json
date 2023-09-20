@@ -2,6 +2,7 @@
   "name": "web",
   "version": "0.0.1",
   "private": true,
+  "type": "commonjs",
   "scripts": {
     "start": "set PORT=8080 && react-scripts start",
     "build": "react-scripts build",
@@ -25,8 +26,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "tailwindcss": "^3.3.3"
   }
 }

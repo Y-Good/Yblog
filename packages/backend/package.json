@@ -2,8 +2,9 @@
   "name": "backend",
   "version": "0.1.0",
   "private": true,
+  "type": "commonjs",
   "scripts": {
-    "start": "set PORT=8081 && react-scripts start",
+    "start": "set PORT=8081 && set BROWSER=none && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
