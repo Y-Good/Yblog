@@ -1,64 +1,131 @@
 import React from "react";
-import "../css/home.css";
-import {
-  Layout,
-  Menu,
-  Breadcrumb,
-  Button,
-  Message,
-  Card,
-} from "@arco-design/web-react";
-import {
-  IconHome,
-  IconCalendar,
-  IconCaretRight,
-  IconCaretLeft,
-} from "@arco-design/web-react/icon";
-import { BrowserRouter, useRoutes } from "react-router-dom";
-import routes from "../route/routes";
-import ABC from "./ABC";
+import { Button, Message, Modal, Space, Table } from "@arco-design/web-react";
+import axios from "axios";
+import EditorPage from "./MarkDownEditor";
 
-const MenuItem = Menu.Item;
-const SubMenu = Menu.SubMenu;
-const Sider = Layout.Sider;
-const Header = Layout.Header;
-const Content = Layout.Content;
+interface MarkDownHandleProps {
+  onCancel?: () => void;
 
-function Home() {
+  onOk?(e: string): void;
+}
+
+class Home extends React.Component {
+  state = {
+    columns: [
+      {
+        title: "ID",
+        dataIndex: "id",
+        width: 50,
+      },
+      {
+        title: "标题",
+        dataIndex: "title",
+        ellipsis: true,
+        width: 400,
+      },
+      {
+        title: "内容",
+        dataIndex: "content",
+        ellipsis: true,
+      },
+    ],
+    data: [],
+    visible: false,
+    content: "",
+    title: "",
+  };
+
+  async componentDidMount() {
+    try {
+      let articles = await axios.get("http://localhost:3001/article");
+      if (articles.data.data) {
+        this.setState({ data: articles.data.data });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async onSubmit(e: string) {
+    let res = await axios.post("http://localhost:3001/article", {
+      title: e,
+      content: this.state.content,
+    });
+    if (res.data.data) {
+      Message.success("添加成功");
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <Space className={"pb-5"} size={"medium"}>
+          <Button
+            type="primary"
+            onClick={() => this.setState({ visible: true })}
+          >
+            Primary
+          </Button>
+          <Button>Default</Button>
+          <Button>Default</Button>
+          <Button>Default</Button>
+        </Space>
+        <Table
+          rowKey={"id"}
+          columns={this.state.columns}
+          data={this.state.data}
+          rowSelection={{
+            type: "checkbox",
+            onChange: () => {},
+          }}
+        />
+        <Modal
+          title={
+            <EHeader
+              onOk={(e) => {
+                this.setState({ visible: false});
+                this.onSubmit(e);
+              }}
+              onCancel={() => this.setState({ visible: false })}
+            />
+          }
+          visible={this.state.visible}
+          autoFocus={false}
+          closable={false}
+          focusLock={true}
+          footer={null}
+          className={"!w-screen h-full p-0"}
+        >
+          <EditorPage
+            content={this.state.content}
+            onChange={(e) => this.setState({ content: e })}
+          />
+        </Modal>
+      </div>
+    );
+  }
+}
+
+function EHeader(props: MarkDownHandleProps) {
+  const { onCancel, onOk } = props;
+  const [title, setTitle] = React.useState("");
   return (
-    <Layout className="layout-demo">
-      <Header>Header</Header>
-      <Layout>
-        <Sider>
-          <Menu defaultOpenKeys={["1"]}>
-            <SubMenu
-              key="1"
-              title={
-                <span>
-                  <IconCalendar />
-                  Navigation 1
-                </span>
-              }
-            >
-              <MenuItem key="1_1">Menu 1</MenuItem>
-              <MenuItem key="1_2">Menu 2</MenuItem>
-              <SubMenu key="2" title="Navigation 2">
-                <MenuItem key="2_1">Menu 1</MenuItem>
-                <MenuItem key="2_2">Menu 2</MenuItem>
-              </SubMenu>
-              <SubMenu key="3" title="Navigation 3">
-                <MenuItem key="3_1">Menu 1</MenuItem>
-                <MenuItem key="3_2">Menu 2</MenuItem>
-                <MenuItem key="3_3">Menu 3</MenuItem>
-              </SubMenu>
-            </SubMenu>
-          </Menu>
-        </Sider>
-        <Content>
-            <Card>{useRoutes(routes)}</Card>
-        </Content>
-      </Layout>
-    </Layout>
+    <div className={"flex justify-between"}>
+      <input
+        onChange={(e) => {
+          setTitle(e.target.value);
+        }}
+        placeholder="输入标题"
+        className={"text-2xl"}
+      />
+      <div className={"flex-auto"}></div>
+      <Button type={"primary"} onClick={() => onOk?.(title)}>
+        发布
+      </Button>
+      <Button className={"ml-4"} onClick={onCancel}>
+        取消
+      </Button>
+    </div>
   );
 }
 

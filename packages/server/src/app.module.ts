@@ -2,10 +2,11 @@ import { Module } from '@nestjs/common';
 import { TagModule } from './modules/tag/tag.module';
 import { UserModule } from './modules/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from "./entities/user.entity";
-import { Tag } from "./entities/tag.entity";
+import { User } from './entities/user.entity';
+import { Tag } from './entities/tag.entity';
 import { ArticleModule } from './modules/article/article.module';
-import { Article } from "./entities/article.entity";
+import { Article } from './entities/article.entity';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -18,8 +19,13 @@ import { Article } from "./entities/article.entity";
       database: 'blog',
       synchronize: true,
       logging: false,
-      entities: ["dist/**/*.entity{.ts,.js}"],
+      entities: ['dist/**/*.entity{.ts,.js}'],
       poolSize: 10,
+    }),
+    JwtModule.register({
+      global: true,
+      secret: 'blog',
+      signOptions: { expiresIn: '1d' },
     }),
     TagModule,
     UserModule,

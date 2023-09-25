@@ -3,16 +3,20 @@ import Post from "../views/Post";
 import About from "../views/About";
 import Error from "../views/Error";
 import App from "../App";
-import { RouteObject } from "react-router-dom";
+import { Navigate, RouteObject } from "react-router-dom";
 
 const routes: RouteObject[] = [
   {
-    path: "/*",
+    path: "/",
+    element: <Navigate to="blog/home" />,
+  },
+  {
+    path: "blog",
     element: <App />,
     children: [
       {
-        index: true,
-        // path: "home",
+        // index: true,
+        path: "home",
         element: <Home />,
       },
       {

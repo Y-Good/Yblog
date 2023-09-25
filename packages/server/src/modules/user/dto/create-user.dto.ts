@@ -1,1 +1,5 @@
-export class CreateUserDto {}
+export class CreateUserDto {
+  number: string;
+  name: string;
+  password: string;
+}

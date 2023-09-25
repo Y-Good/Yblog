@@ -1,11 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  UseInterceptors,
+  ClassSerializerInterceptor,
+  SerializeOptions,
+} from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 
+@UseInterceptors(ClassSerializerInterceptor)
+@SerializeOptions({
+  excludePrefixes: ['_'],
+})
 @Controller('article')
 export class ArticleController {
-  constructor( private readonly articleService: ArticleService) {}
+  constructor(private readonly articleService: ArticleService) {}
 
   @Post()
   create(@Body() createArticleDto: CreateArticleDto) {
@@ -18,17 +31,17 @@ export class ArticleController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.articleService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.articleService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDto) {
-    return this.articleService.update(+id, updateArticleDto);
+  @Post('update')
+  update(@Body() updateArticleDto: UpdateArticleDto) {
+    return this.articleService.update(updateArticleDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.articleService.remove(+id);
+  @Post('remove')
+  remove(@Body() updateArticleDto: UpdateArticleDto) {
+    return this.articleService.remove(updateArticleDto.id);
   }
 }

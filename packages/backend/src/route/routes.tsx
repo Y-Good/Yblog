@@ -1,6 +1,5 @@
 import Home from "../views/Home";
-import { Navigate, NavLink, RouteObject } from "react-router-dom";
-import ABC from "../views/ABC";
+import { Navigate, RouteObject } from "react-router-dom";
 
 const routes: RouteObject[] = [
   {
@@ -9,7 +8,7 @@ const routes: RouteObject[] = [
   },
   {
     path: "home",
-    element: <ABC />,
+    element: <Home />,
   },
 ];
 
