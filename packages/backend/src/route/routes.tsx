@@ -1,5 +1,6 @@
 import Home from "../views/Home";
 import { Navigate, RouteObject } from "react-router-dom";
+import Tag from "../views/Tag";
 
 const routes: RouteObject[] = [
   {
@@ -9,6 +10,10 @@ const routes: RouteObject[] = [
   {
     path: "home",
     element: <Home />,
+  },
+  {
+    path: "tag",
+    element: <Tag />,
   },
 ];
 

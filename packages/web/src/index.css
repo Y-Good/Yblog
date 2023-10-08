@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    font-family: "Roboto Mono", sans-serif, ".苹方-简";
-}
-
 
 ::-webkit-scrollbar {
     display: none;

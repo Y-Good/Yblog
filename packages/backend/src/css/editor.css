@@ -1,0 +1,8 @@
+.arco-modal-header {
+    height: 64px !important;
+    border-bottom: none;
+}
+
+.arco-modal-content {
+    padding: 0 0 !important;
+}

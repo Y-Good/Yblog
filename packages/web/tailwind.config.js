@@ -6,6 +6,8 @@ module.exports = {
       typography: {
         DEFAULT: {
           css: {
+            fontFamily:
+              '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
             a: {
               color: "#0969da",
               textDecoration: "none",
@@ -13,21 +15,26 @@ module.exports = {
                 textDecoration: "underline",
               },
             },
+            img: {
+              display: "inline",
+              marginTop: "0",
+              marginBottom: "0",
+            },
             table: {
               width: "auto",
             },
             code: {
-              fontWeight: "400",
-              backgroundColor: "rgba(175,184,193,0.2)",
-              borderRadius: "6px",
-              fontSize: "inherit",
-              padding: "0 0.2em",
-              "&::before": {
-                display: "none",
-              },
-              "&::after": {
-                display: "none",
-              },
+              fontWeight: "600",
+              // backgroundColor: "rgba(175,184,193,0.2)",
+              // borderRadius: "6px",
+              // fontSize: "inherit",
+              // padding: "0 0.2em",
+              // "&::before": {
+              //   display: "none",
+              // },
+              // "&::after": {
+              //   display: "none",
+              // },
             },
             tbody: {
               td: {
@@ -46,20 +53,22 @@ module.exports = {
                 borderWidth: "1px",
               },
             },
-            p: {
-              code: {
-                padding: "0.2em 0.4em",
-              },
-            },
+            // p: {
+            //   code: {
+            //     padding: "0.2em 0.4em",
+            //   },
+            // },
             pre: {
               // padding: "0",
               // margin:"0",
-              div:{
+              div: {
                 padding: "0 !important",
                 margin: "0 !important",
+                backgroundColor: "transparent !important",
               },
               code: {
                 whiteSpace: "break-spaces !important",
+                backgroundColor: "transparent !important",
               },
             },
           },
@@ -67,17 +76,11 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: [
-        "Roboto Mono",
-        "sans-serif",
-        "PingFang SC",
-        "Microsoft YaHei",
-        "Helvetica Neue",
-        "Helvetica",
-        "Arial",
-        "sans-serif",
-      ],
+      sans: ["Roboto Mono", "PingFang SC", "sans-serif"],
       mono: ["Roboto Mono", "monospace"],
+    },
+    gridTemplateRows: {
+      layout: "auto 1fr auto",
     },
   },
   plugins: [require("@tailwindcss/typography")],

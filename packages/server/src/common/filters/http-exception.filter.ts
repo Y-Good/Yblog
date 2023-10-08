@@ -8,7 +8,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response = context.getResponse<Response>()
     const request = context.getRequest<Request>()
     const status = exception.getStatus()
-    const message = exception.message
+    let message = exception.message
+    if(exception.getResponse() instanceof Object) {
+      message = exception.getResponse()['message'];
+    }
 
     if (request.url == '/') return;
 

@@ -10,7 +10,6 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import rehypeRaw from "rehype-raw";
 
-
 interface Article {
   id: number;
   title: string;
@@ -42,11 +41,12 @@ function Post() {
   };
   const getArticle = useCallback(async () => {
     let article = await axios.get(`http://localhost:3001/article/${id}`);
-    setData(article.data.data);
+    setData(article.data.result);
   }, [id]);
 
   useEffect(() => {
-    getArticle();
+    window.scrollTo(0, 0);
+    getArticle().then((r) => r);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -62,7 +62,7 @@ function Post() {
         <span>Shane Hobbins</span>
       </div>
       {/*文章内容*/}
-      <div className="mt-12 mb-16">
+      <article className="mt-12 mb-16">
         <ReactMarkdown
           className={"prose max-w-none prose-stone"}
           components={Code}
@@ -71,7 +71,7 @@ function Post() {
           rehypePlugins={[rehypeRaw]}
           remarkPlugins={[remarkGfm]}
         />
-      </div>
+      </article>
 
       {/*标签*/}
       <div className={"flex items-center space-x-2"}>

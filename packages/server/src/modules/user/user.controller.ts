@@ -54,6 +54,7 @@ export class UserController {
   }
 
   @Post('login')
+  @UseInterceptors(ClassSerializerInterceptor)
   async login(@Body(ValidationPipe) user: LoginUserDto) {
     const foundUser = await this.userService.login(user);
     if (foundUser) {

@@ -2,12 +2,11 @@ import React, { ReactElement } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import Icon from "./components/Icon";
 import Icons from "./config/icons";
-import * as url from "url";
 
 function App(): ReactElement {
   return (
-    <div>
-      <header className="flex items-center justify-between mx-56 pt-24">
+    <div className="min-h-screen grid grid-rows-layout">
+      <header className="flex items-center justify-between mx-56 p-8">
         <div>小呆比</div>
         <Nav />
         <div className="flex items-center">
@@ -21,7 +20,7 @@ function App(): ReactElement {
         </div>
       </header>
 
-      <div className={"my-24"} style={{ margin:"auto",maxWidth:"65ch"}}>
+      <div className={"py-24 max-w-prose mx-auto"}>
         <Outlet />
       </div>
 
@@ -40,10 +39,10 @@ function App(): ReactElement {
 
 function Nav() {
   const routes = [
-    { path: "/blog/home", title: "Home" },
-    { path: "/blog/about", title: "Blog" },
-    { path: "/blog/con", title: "Contact us" },
-    { path: "/blog/more", title: "More" },
+    { path: "/blog/home", title: "首页" },
+    { path: "/blog/about", title: "博客" },
+    { path: "/blog/con", title: "联系我们" },
+    { path: "/blog/more", title: "更多" },
   ];
 
   const activeStyle = (val: boolean) =>

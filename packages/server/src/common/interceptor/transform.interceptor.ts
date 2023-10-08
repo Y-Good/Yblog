@@ -10,9 +10,9 @@ export class TransformInterceptor<T> implements NestInterceptor<T, Response<T>> 
     const request = context.switchToHttp().getRequest<Request>()
     Logger.log(request.url, `正常接口请求 - ${request.method}`);
     return next.handle().pipe(
-      map(data => {
+      map(result => {
         return {
-          data: data,
+          result: result,
           code: 200,
           message: '请求成功'
         }

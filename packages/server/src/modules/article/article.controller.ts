@@ -11,6 +11,7 @@ import {
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { Pagination } from "../../common/decorators/pagination";
 
 @UseInterceptors(ClassSerializerInterceptor)
 @SerializeOptions({
@@ -26,8 +27,9 @@ export class ArticleController {
   }
 
   @Get()
-  findAll() {
-    return this.articleService.findAll();
+  findAll(@Pagination() pagination:PageinationInterface) {
+    const { page, pageSize } = pagination;
+    return this.articleService.findAll(page, pageSize);
   }
 
   @Get(':id')

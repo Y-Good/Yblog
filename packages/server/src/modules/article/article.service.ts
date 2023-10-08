@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
-import { Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 import { Article } from '../../entities/article.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -16,13 +16,27 @@ export class ArticleService {
     return this.articleRepository.save(createArticleDto);
   }
 
-  findAll() {
-    return this.articleRepository.find({
+  async findAll(page: number, pageSize: number | undefined) {
+    const query: FindManyOptions<Article> = {
       where: { _live: 1 },
       order: {
         created_at: 'DESC',
       },
-    });
+    };
+
+    if (pageSize !== undefined) {
+      query.take = pageSize;
+      query.skip = pageSize * page;
+    }
+
+    let data = await this.articleRepository.find(query);
+    let count = await this.articleRepository.count(query);
+
+    return {
+      data: data,
+      pageSize: pageSize,
+      count: count,
+    };
   }
 
   findOne(id: number) {
